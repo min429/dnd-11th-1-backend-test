@@ -8,8 +8,9 @@ spring:
     open-in-view: false
     show-sql: true
     properties:
-      format_sql: true
-      hibernate.hbm2ddl.auto: create
+      hibernate:
+        format_sql: true
+        hbm2ddl.auto: create
 
 datasource:
   db:
