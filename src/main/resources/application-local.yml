@@ -10,7 +10,7 @@ spring:
     properties:
       hibernate:
         format_sql: true
-#        hbm2ddl.auto: create
+        hbm2ddl.auto: update
 
 datasource:
   db:
@@ -42,3 +42,10 @@ datasource:
       autoReconnectForPools: true
       usePipelineAuth: false
       useBatchMultiSend: false
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+        exclude: env, beans

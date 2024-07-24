@@ -46,10 +46,21 @@ dependencies {
 
     // Swagger
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.1.0'
+
+    // Actuator
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
 }
 
 tasks.named('test') {
     useJUnitPlatform()
+}
+
+processResources.dependsOn('copySecret')
+
+tasks.register('copySecret', Copy) {
+    from './accompany-submodule'
+    include "application*.yml"
+    into 'src/main/resources'
 }
 
 def querydslDir = layout.buildDirectory.dir("generated/querydsl").get().asFile
@@ -71,4 +82,12 @@ configurations {
 tasks.withType(JavaCompile).configureEach {
     clean
     options.getGeneratedSourceOutputDirectory().set(file(querydslDir))
+}
+
+bootJar {
+    dependsOn 'copySecret'
+}
+
+build {
+    dependsOn 'copySecret'
 }
