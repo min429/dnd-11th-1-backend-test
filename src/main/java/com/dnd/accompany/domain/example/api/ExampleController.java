@@ -13,6 +13,7 @@ import com.dnd.accompany.domain.example.service.ExampleService;
 import com.dnd.accompany.global.common.exception.NotFoundException;
 import com.dnd.accompany.global.common.response.ErrorCode;
 
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
@@ -23,13 +24,15 @@ public class ExampleController {
 
 	private final ExampleService exampleService;
 
+	@Operation(summary = "정상 응답")
 	@PostMapping
-	public ResponseEntity<Long> create(@RequestBody @Valid CreateExampleRequest request) {
+	public ResponseEntity<CreateExampleResponse> create(@RequestBody @Valid CreateExampleRequest request) {
 		CreateExampleResponse response = exampleService.create(request);
 
-		return ResponseEntity.ok(response.id());
+		return ResponseEntity.ok(response);
 	}
 
+	@Operation(summary = "예외 응답")
 	@GetMapping
 	public void exception() {
 		throw new NotFoundException(ErrorCode.BAD_REQUEST);
