@@ -28,6 +28,12 @@ jobs:
           mysql database: 'accompany'
           mysql root password: 1234
 
+      - name: Wait for MySQL
+        run: |
+          while ! mysqladmin ping --host=127.0.0.1 -uroot -p1234 --silent; do
+            sleep 1
+          done
+
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
