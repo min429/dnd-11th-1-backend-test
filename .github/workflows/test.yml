@@ -10,7 +10,7 @@ jobs:
       contents: read
 
     env:
-      SPRING_PROFILES_ACTIVE: local
+      SPRING_PROFILES_ACTIVE: local, dev
 
     steps:
       - uses: actions/checkout@v4
