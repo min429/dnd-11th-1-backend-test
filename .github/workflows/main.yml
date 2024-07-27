@@ -11,7 +11,7 @@ env:
   JWT_SECRET_KEY: ${{ secrets.JWT_SECRET_KEY }}
 
 jobs:
-  build:
+  build-test:
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -26,7 +26,7 @@ jobs:
         run: |
           cd ./src/main/resources
           touch ./application-local.yml
-      
+
       - name: Set up MySQL
         uses: mirromutth/mysql-action@v1.1
         with:
@@ -36,8 +36,7 @@ jobs:
           collation server: 'utf8mb4_general_ci'
           mysql version: '9.0'
           mysql database: 'accompany'
-          mysql user: 'root'
-          mysql password: '1234'
+          mysql root password: 1234
 
       - name: Wait for MySQL
         run: |
